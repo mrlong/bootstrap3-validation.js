@@ -5,7 +5,7 @@ bootstrap3-validation.js
 
 jQuery plugin for bootstrap3
 
-由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
+##由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
 
 
  * check-type=
@@ -32,23 +32,24 @@ jQuery plugin for bootstrap3
  *   );
 
 
-使用方法：
+#使用方法：
 
-js:
+##js:
 
-*<script type="text/javascript">
-*  $(function(){
-*    //1. 简单写法：
-*    $("form").validation();
-*    $("button[type='submit']").on('click',function(event){
-*      // 2.最后要调用 valid()方法。
-*      if ($("form").valid()==false){
-*        $("#error-text").text("error!");
-*        return false;
-*      }
-*    })
-*  })
-*</script>
+'''js
+<script type="text/javascript">
+ $(function(){
+   //1. 简单写法：
+   $("form").validation();
+   $("button[type='submit']").on('click',function(event){
+     // 2.最后要调用 valid()方法。
+     if ($("form").valid()==false){
+       $("#error-text").text("error!");
+       return false;
+     }
+   })  })
+</script>
+'''
 
 
 html:
