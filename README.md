@@ -6,6 +6,8 @@ bootstrap3-validation.js
 jQuery plugin for bootstrap3
 由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
 
+![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test.png?raw=true)
+
 ##ChangeLog
 
  - 1. 1.0.0  创建文件 
