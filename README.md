@@ -33,21 +33,22 @@ jQuery plugin for bootstrap3
 
 
 使用方法：
-========================
 
-<script type="text/javascript">
-  $(function(){
-    //1. 简单写法：
-    $("form").validation();
-    $("button[type='submit']").on('click',function(event){
-      // 2.最后要调用 valid()方法。
-      if ($("form").valid()==false){
-        $("#error-text").text("error!");
-        return false;
-      }
-    })
-  })
-</script>
+js:
+
+*<script type="text/javascript">
+*  $(function(){
+*    //1. 简单写法：
+*    $("form").validation();
+*    $("button[type='submit']").on('click',function(event){
+*      // 2.最后要调用 valid()方法。
+*      if ($("form").valid()==false){
+*        $("#error-text").text("error!");
+*        return false;
+*      }
+*    })
+*  })
+*</script>
 
 
 html:
