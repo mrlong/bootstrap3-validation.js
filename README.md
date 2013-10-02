@@ -72,7 +72,7 @@ jQuery plugin for bootstrap3
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">用户名</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" id="name" check-type="required">
+          <input type="text" class="form-control" id="name" check-type="required" required-message="请填写你的大名。">
         </div>
       </div>
 
@@ -93,7 +93,7 @@ jQuery plugin for bootstrap3
       <div class="form-group">
         <label for="vercode" class="col-sm-2 control-label">验证码</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" id="vercode" check-type="date" range="2.2,5">
+          <input type="text" class="form-control" id="vercode" check-type="number" range="2.2,5">
         </div>
       </div>  
 
