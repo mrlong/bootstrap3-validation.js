@@ -7,36 +7,38 @@ jQuery plugin for bootstrap3
 
 ##由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
 
+```
+ check-type=
+    required 不能为空，并在后面自动加*号
+    url  表示 输入网址
+    date 日期格式 xxxx-xx-xx
+    mail 邮箱
+    number 数字，可以整型，浮点型。
+    char 
+    chinese 中文
+ mail-message="扩展提示内容" ， 可以扩展data-message,url-message  
+ mixlength="6" 表示长度大于等于6
+ range="2.1~3"   表示值在[2.1~3]之间，并check-type="number"
+ range="2.1,2,4,5"   表示值在只能填现数字，并check-type="number" 
 
- * check-type=
- *    required 不能为空，并在后面自动加*号
- *    url  表示 输入网址
- *    date 日期格式 xxxx-xx-xx
- *    mail 邮箱
- *    char
- *    chinese 
- * mixlength="6" 表示长度大于等于6
- * range="2.1~3"   表示值在[2.1~3]之间，并check-type="number"
- * range="2.1,2,4,5"   表示值在只能填现数字，并check-type="number" 
- *
- *
- * 例如:
- * $("form").validation(function(obj,params){
- *     if (obj.id=='mail'){
- *       $.post("/verifymail",{mail :$(obj).val()},function(data){
- *         params.err = !data.success;
- *         params.msg = data.msg;
- *       });
- *     }},
- *     {reqmark:false}
- *   );
 
+ 例如:
+  $("form").validation(function(obj,params){
+     if (obj.id=='mail'){
+       $.post("/verifymail",{mail :$(obj).val()},function(data){
+         params.err = !data.success;
+         params.msg = data.msg;
+        });
+     }},
+     {reqmark:false}
+    );
+```
 
 #使用方法：
 
-##js:
+## js:
 
-'''js
+```js
 <script type="text/javascript">
  $(function(){
    //1. 简单写法：
@@ -49,10 +51,11 @@ jQuery plugin for bootstrap3
      }
    })  })
 </script>
-'''
+```
 
 
-html:
+## html:
+```html
   <form class="form-horizontal"  action="#" role="form">
       <div class="form-group">
         <label for="mail" class="col-sm-2 control-label">Email</label>
@@ -102,6 +105,6 @@ html:
       </div>
 
     </form>
-
+```
 
 bootstrap3 validation
