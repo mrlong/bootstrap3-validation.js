@@ -4,9 +4,14 @@ bootstrap3-validation.js
 ========================
 
 jQuery plugin for bootstrap3
+由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
 
-##由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
+##ChangeLog
 
+ - 1. 1.0.0  创建文件 
+  
+
+##功能参数
 ```
  check-type=
     required 不能为空，并在后面自动加*号
