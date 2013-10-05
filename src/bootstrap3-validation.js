@@ -30,6 +30,7 @@
  *
  *  编号   版本号      作者     修改日期        修改内容
  *   1    1.0.0     mrlong    2013-10-2      创建文件
+ ×   2    1.0.1     mrlong    2013-10-5      callback显示提示的信息。
  *
  *
 /* =========================================================
@@ -189,7 +190,10 @@
             error = params.err;   
             if (error && (msg==null || errorMsg=='')){
                 errorMsg = params.msg;
-            };
+            }
+            else if(params.msg!=''){
+                errorMsg = params.msg;
+            }
             $.ajaxSetup({async : b});
         };
 
