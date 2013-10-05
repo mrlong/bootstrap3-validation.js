@@ -9,7 +9,7 @@ jQuery plugin for bootstrap3
 ![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test.png?raw=true)
 
 ##ChangeLog
-
+ - 2. 1.0.1  callback显示提示的信息。 2013-10-5
  - 1. 1.0.0  创建文件 
   
 
