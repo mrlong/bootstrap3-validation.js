@@ -7,8 +7,11 @@ jQuery plugin for bootstrap3
 由于在网上找到一个插件已不在维护了，并只支持bootstrap2 . 应项目要求自己写了一个。
 
 ![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test.png?raw=true)
+![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test2.png?raw=true)
+![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test3.png?raw=true)
 
 ##ChangeLog
+ - 3. 1.0.2  增加基本表单与内联表单样式。
  - 2. 1.0.1  callback显示提示的信息。 2013-10-5
  - 1. 1.0.0  创建文件 
   
