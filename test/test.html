@@ -14,7 +14,7 @@
   $(function(){
 
     //1. 简单写法：
-    $("form").validation();
+    $("#form1").validation();
 
     // 要从后台数据确定填的邮箱是不是已注册过了，采用回调方法
     // $("form").validation(function(obj,params){
@@ -29,20 +29,43 @@
 
    
     //.注册
-    $("button[type='submit']").on('click',function(event){
+    $("#submit1").on('click',function(event){
       // 2.最后要调用 valid()方法。
-      if ($("form").valid()==false){
+      if ($("#form1").valid()==false){
         $("#error-text").text("填写信息不完整。")
         return false;
       }
     })
+
+    $("#form2").validation();
+    //.注册
+    $("#submit2").on('click',function(event){
+      // 2.最后要调用 valid()方法。
+      if ($("#form2").valid()==false){
+        alert('填写信息不完整。');
+        return false;
+      }
+    });
+
+
+    $("#form3").validation();
+    //.注册
+    $("#submit3").on('click',function(event){
+      // 2.最后要调用 valid()方法。
+      if ($("#form3").valid()==false){
+        alert('填写信息不完整。');
+        return false;
+      }
+    });
+
   })
 </script>
 
   <body>
     <h1><a href="https://github.com/mrlong/bootstrap3-validation.js">bootstrap3 of validation</a></h1>
 
-    <form class="form-horizontal"  action="#" role="form">
+<!-- 水平排列的表单 -->
+     <form class="form-horizontal"  id="form1" action="#" role="form">
       <div class="form-group">
         <label for="mail" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-6">
@@ -84,7 +107,7 @@
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-primary col-sm-4">注册</button>
+          <button type="submit" id="submit1" class="btn btn-primary col-sm-4">注册</button>
         </div>
       </div>
 
@@ -95,6 +118,53 @@
       </div>
 
     </form>
+
+<!-- 基本表单 -->
+<div class="container">
+<h1>基本表单</h1>
+<form role="form" id="form2">
+  <div class="form-group has-error">
+    <label for="exampleInputEmail1" >Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" check-type="required">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1" >Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" check-type="required">
+  </div>
+  <div class="form-group ">
+    <label for="exampleInputFile">File input</label>
+    <input type="File" id="exampleInputFile" class="form-control" check-type="required">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+
+  <div class="checkbox ">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
+  <button type="submit" id="submit2" class="btn btn-primary col-sm-4">提交</button>
+</form>
+</div>
+
+<div class="container">
+<h1>内联表单</h1>
+<form class="form-inline" role="form" id="form3">
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputEmail2">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" check-type="required">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="exampleInputPassword2">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" check-type="required">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" > Remember me<span>ssss</span>
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" id="submit3">确定</button>
+</form>
+</div>
 
 
   </body>

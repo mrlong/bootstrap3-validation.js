@@ -31,6 +31,7 @@
  *  编号   版本号      作者     修改日期        修改内容
  *   1    1.0.0     mrlong    2013-10-2      创建文件
  ×   2    1.0.1     mrlong    2013-10-5      callback显示提示的信息。
+ *   3.   1.0.2     mrlong    2013-10-7     增加基本表单与内联表单样式。
  *
  *
 /* =========================================================
@@ -66,6 +67,7 @@
             globalOptions.callback = callback;
             // Add novalidate tag if HTML5.
             $(this).attr( "novalidate", "novalidate" );
+            fform_style = isformstyle(this);
             validationForm(this)
         });
     };
@@ -117,7 +119,20 @@
     var formState = false, 
         fieldState = false, 
         wFocus = false, 
+        fform_style=0,    //0=表示基本表单 1=表示内联表单 2=水平排列的表单
         globalOptions = {};
+
+    function isformstyle(form){
+        if($(form).hasClass('form-inline')){
+            return  1; 
+        }
+        else if($(form).hasClass('form-horizontal')){
+            return  2;
+        }
+        else{
+            return  0;
+        };  
+    };
 
     //验证字段
     var validateField = function(field, valid) { 
@@ -139,9 +154,21 @@
             for (j = 0; j < rules.length; j++) {
                 var rule = rules[j];
                 if (flag == rule.name) {
-                    if (rule.validate.call(field, el.val()) == x) {
+                    var value;
+                    if (el.attr('type')=='checkbox'){
+                        value = el.is(":checked")?'true':'';
+                    }
+                    else{
+                        value=el.val();
+                    };
+                    if (rule.validate.call(field, value) == x) {
                         error = true;
-                        errorMsg = (msg == null)?rule.defaultMsg:msg;
+                        if (el.attr('type').toLowerCase()=='file'){
+                            errorMsg = (msg == null)?'请选择文件。':msg;
+                        }
+                        else{
+                            errorMsg = (msg == null)?rule.defaultMsg:msg;
+                        }
                         break;
                     }
                 }
@@ -201,8 +228,21 @@
         var controlGroup = el.parents('.form-group');
         controlGroup.removeClass('has-error has-success');
         controlGroup.addClass(error==false?'has-success':'has-error');
-        controlGroup.find("#valierr").remove();
-        el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
+        var form = el.parents("form");
+        if(form){
+            var fstyle = isformstyle(form);
+            if(fstyle == 0){
+                controlGroup.find("#valierr").remove();
+                el.after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
+            }
+            else if(fstyle == 1){
+
+            }
+            else if (fstyle == 2){
+                controlGroup.find("#valierr").remove();
+                el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
+            }
+        };//end !form
         return !error;
     };
 
@@ -220,21 +260,46 @@
             });
         });
 
-        //2.设置必填的标志*号
-        if (globalOptions.reqmark==true){
-            $(obj).find('input, textarea').each(function(){
-                var el = $(this);
-                var controlGroup = el.parents('.form-group');
-                controlGroup.removeClass('has-error has-success');
-                controlGroup.find("#valierr").remove();
+        //2.如是文件选择则要处理onchange事件
+        $(obj).find("input[type='file']").each(function(){
+           var el = $(this);
+            el.on('change',function(){ //
                 valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
                 if (valid){
-                    if (valid.indexOf('required')>=0){
-                    el.parent().after('<span class="help-block" id="valierr" style="color:#FF9966">*</span>');
-                    }
+                    validateField(this, valid);
                 }
-           
-            });
+            }); 
+        });
+
+        //3.设置必填的标志*号
+        if (globalOptions.reqmark==true){
+            if(fform_style==0){
+                $(obj).find(".form-group>label").each(function(){
+                    var el=$(this);
+                    var controlGroup = el.parents('.form-group');
+                    controlGroup.removeClass('has-error has-success');
+                    controlGroup.find("#autoreqmark").remove();
+                    el.after('<span id="autoreqmark" style="color:#FF9966"> *</span>')
+                });
+            }
+            else if(fform_style==1){
+
+            }   
+            else if(fform_style==2){
+
+                $(obj).find('input, textarea').each(function(){
+                    var el = $(this);
+                    var controlGroup = el.parents('.form-group');
+                    controlGroup.removeClass('has-error has-success');
+                    controlGroup.find("#valierr").remove();
+                    valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
+                    if (valid){
+                        if (valid.indexOf('required')>=0){
+                            el.parent().after('<span class="help-block" id="valierr" style="color:#FF9966">*</span>');
+                        }
+                    };
+                }); 
+            };
         };//end showrequired
 
     };
