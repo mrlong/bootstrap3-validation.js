@@ -11,7 +11,7 @@
  *   char 
  *   chinese 中文
  * mail-message="扩展提示内容" ， 可以扩展data-message,url-message  
- * mixlength="6" 表示长度大于等于6
+ * minlength="6" 表示长度大于等于6
  * range="2.1~3"   表示值在[2.1~3]之间，并check-type="number"
  * range="2.1,2,4,5"   表示值在只能填现数字，并check-type="number" 
  *
@@ -32,6 +32,7 @@
  *   1    1.0.0     mrlong    2013-10-2      创建文件
  ×   2    1.0.1     mrlong    2013-10-5      callback显示提示的信息。
  *   3.   1.0.2     mrlong    2013-10-7     增加基本表单与内联表单样式。
+ *   4.   1.0.3     mrlong    2013-11-04     修改支持IE8，不能Array.indexOf() 改为 $.inArray()
  *
  *
 /* =========================================================
@@ -185,7 +186,7 @@
         };
 
         //值区间
-        if (valid.indexOf('number')>=0 && range && !error){
+        if ($.inArray('number',valid)>=0 && range && !error){
             var values = range.split("~");
             
             if(values.length==2){ 
@@ -197,7 +198,8 @@
             else{
                 var values = range.split(",");
                 if (values.length>0){
-                    error = values.indexOf(el.val())<0;
+                    //error =  values.indexOf(el.val())<0;
+                    error = $.inArray(el.val(),values)<0;
                     if (error && (msg==null || errorMsg=='')){
                         errorMsg = '输入值为' +range +'的其中一个。';
                     }
@@ -294,7 +296,7 @@
                     controlGroup.find("#valierr").remove();
                     valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
                     if (valid){
-                        if (valid.indexOf('required')>=0){
+                        if ($.inArray('required',valid)>=0){
                             el.parent().after('<span class="help-block" id="valierr" style="color:#FF9966">*</span>');
                         }
                     };
