@@ -11,6 +11,7 @@ jQuery plugin for bootstrap3
 ![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test3.png?raw=true)
 
 ##ChangeLog
+ - 4. 1.0.3  修改支持IE8，Array.indexOf() 改为 $.inArray()
  - 3. 1.0.2  增加基本表单与内联表单样式。
  - 2. 1.0.1  callback显示提示的信息。 2013-10-5
  - 1. 1.0.0  创建文件 
