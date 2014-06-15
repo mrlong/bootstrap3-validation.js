@@ -2,7 +2,7 @@
 
 bootstrap3-validation.js
 author：mrlong  
-home: ![preview](http://www.mrlong.cn)
+home: http://www.mrlong.cn
 ========================
 
 jQuery plugin for bootstrap3
