@@ -1,6 +1,8 @@
 庆国庆，今年2013国庆七天假没有出行。给国家，给社区，给bootstrap3贡献一份力量。 2013－10－2
 
 bootstrap3-validation.js
+author：mrlong  
+home: ![preview](http://www.mrlong.cn)
 ========================
 
 jQuery plugin for bootstrap3
@@ -11,6 +13,7 @@ jQuery plugin for bootstrap3
 ![preview](https://github.com/mrlong/bootstrap3-validation.js/blob/master/test/test3.png?raw=true)
 
 ##ChangeLog
+ - 5. 1.0.4  修改在textarea没有type时的错误并扩展valid（）方法。 2014-6-15 巴西世界杯 英格兰1-意大利2
  - 4. 1.0.3  修改支持IE8，Array.indexOf() 改为 $.inArray()
  - 3. 1.0.2  增加基本表单与内联表单样式。
  - 2. 1.0.1  callback显示提示的信息。 2013-10-5
@@ -56,8 +59,8 @@ jQuery plugin for bootstrap3
    $("form").validation();
    $("button[type='submit']").on('click',function(event){
      // 2.最后要调用 valid()方法。
-     if ($("form").valid()==false){
-       $("#error-text").text("error!");
+     if ($("form").valid(this,"error!")==false){
+       //$("#error-text").text("error!"); 1.0.4版本已将提示直接内置掉，简化前端。
        return false;
      }
    })  })

@@ -33,6 +33,7 @@
  ×   2    1.0.1     mrlong    2013-10-5      callback显示提示的信息。
  *   3.   1.0.2     mrlong    2013-10-7     增加基本表单与内联表单样式。
  *   4.   1.0.3     mrlong    2013-11-04     修改支持IE8，不能Array.indexOf() 改为 $.inArray()
+ *   5.   1.0.4     mrlong    2014-6-15     修改在textarea没有type时的错误,扩展valid（）方法。
  *
  *
 /* =========================================================
@@ -73,10 +74,22 @@
         });
     };
 
-    $.fn.valid=function(options){
+    $.fn.valid=function(object,options){
         if (formState) { // 重复提交则返回
             return false;
+        };
+        $("#validerrmsg").remove();
+
+        var myobject;
+        var myoptions;
+        if (typeof object === 'object'){
+            myobject = $(object);
+            myoptions = options;
         }
+        else{
+            myoptions = object;
+        };
+
         formState = true;
         var validationError = false; 
         //取出验证的
@@ -98,6 +111,18 @@
 
         wFocus = false;
         formState = false;
+        
+        //显示信息内容 2014-6-15
+        //在最后的提交按钮增加提示内容
+        if(myoptions !=null && validationError){
+            if (myobject ==null){
+                myobject = $('button:last[type=submit]');
+            };
+            myobject.after('<span id="validerrmsg" class="help-block" style="color: #FF0000;">'+myoptions+'</span>');
+              
+        };
+        //end
+
         return !validationError;        
     }
 
@@ -156,7 +181,7 @@
                 var rule = rules[j];
                 if (flag == rule.name) {
                     var value;
-                    if (el.attr('type')=='checkbox'){
+                    if (el.attr('type')!=null && el.attr('type')=='checkbox'){
                         value = el.is(":checked")?'true':'';
                     }
                     else{
@@ -164,7 +189,7 @@
                     };
                     if (rule.validate.call(field, value) == x) {
                         error = true;
-                        if (el.attr('type').toLowerCase()=='file'){
+                        if (el.attr('type')!=null && el.attr('type').toLowerCase()=='file'){
                             errorMsg = (msg == null)?'请选择文件。':msg;
                         }
                         else{
