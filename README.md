@@ -67,6 +67,18 @@ jQuery plugin for bootstrap3
 </script>
 ```
 
+###后台数据判断，如用户邮箱是否已注册过了。
+```js
+$("form").validation(function(obj,params){
+     if (obj.id=='mail'){
+       $.post("/verifymail",{mail :$(obj).val()},function(data){
+         params.err = !data.success;
+         params.msg = data.msg;
+        });
+     }},
+     {reqmark:false}
+    );
+```
 
 ## html:
 ```html
