@@ -22,7 +22,7 @@
   $(function(){
 
     //1. 简单写法：
-    $("#form1").validation();
+    $("#form1").validation({icon:true});
 
     // 要从后台数据确定填的邮箱是不是已注册过了，采用回调方法
     // $("form").validation(function(obj,params){
@@ -57,7 +57,9 @@
     });
 
 
-    $("#form3").validation();
+    $("#form3").validation(function(obj,params){  
+      //扩展校验方法
+    },{reqmark:false,icon:true});
     //.注册
     $("#submit3").on('click',function(event){
       // 2.最后要调用 valid()方法。
@@ -73,7 +75,12 @@
   <body>
     <h1><a href="https://github.com/mrlong/bootstrap3-validation.js">bootstrap3 of validation</a></h1>
 
-<!-- 水平排列的表单 -->
+    <!-- 水平排列的表单 -->
+    <div class="container">
+    <div class="page-header">
+      <h1>水平表单 <small>Subtext for header</small></h1>
+    </div>
+    
      <form class="form-horizontal"  id="form1" action="#" role="form">
       <div class="form-group">
         <label for="mail" class="col-sm-2 control-label">Email</label>
@@ -122,8 +129,8 @@
           <button class="btn btn-link" type="button" data-toggle="tooltip" title="验证码会以邮件的方式发送到你的上面填写的邮箱内" data-placement="right" id="getvercode" >获取验证码</button>
         </div>
       </div>  
-
-      <div class="form-group">
+       
+       <div class="form-group">
         <label for="vercode" class="col-sm-2 control-label">备注</label>
         <div class="col-sm-6">
           <textarea  class="form-control" id="vercode" check-type="required" rows="3"></textarea>
@@ -136,15 +143,19 @@
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
           <button type="submit" id="submit1" class="btn btn-primary col-sm-4">注册</button>
+          <button type="reset"  class="btn btn-primary col-sm-4">重置</button>
         </div>
       </div>
 
 
     </form>
+  </div>
 
 <!-- 基本表单 -->
 <div class="container">
-<h1>基本表单</h1>
+<div class="page-header">
+    <h1>基本表单 <small>Subtext for header</small></h1>
+</div>
 <form role="form" id="form2">
   <div class="form-group has-error">
     <label for="exampleInputEmail1" >Email address</label>
@@ -171,7 +182,9 @@
 </div>
 
 <div class="container">
-<h1>内联表单</h1>
+<div class="page-header">
+    <h1>内联表单 <small>Subtext for header</small></h1>
+</div>
 <form class="form-inline" role="form" id="form3">
   <div class="form-group">
     <label class="sr-only" for="exampleInputEmail2">Email address</label>

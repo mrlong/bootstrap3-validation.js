@@ -10,13 +10,14 @@
  *   number 数字，可以整型，浮点型。
  *   char 
  *   chinese 中文
+ *   mobile  手机号码
  * mail-message="扩展提示内容" ， 可以扩展data-message,url-message  
  * minlength="6" 表示长度大于等于6
  * range="2.1~3"   表示值在[2.1~3]之间，并check-type="number"
  * range="2.1,2,4,5"   表示值在只能填现数字，并check-type="number" 
  *
  *
- * 例如:
+ * 回调应用:
  * $("form").validation(function(obj,params){
  *     if (obj.id=='mail'){
  *       $.post("/verifymail",{mail :$(obj).val()},function(data){
@@ -24,8 +25,10 @@
  *         params.msg = data.msg;
  *       });
  *     }},
- *     {reqmark:false}
+ *     {reqmark:false,icon:true}
  *   );
+ *  其中： reqmark = true 表示显示*号
+ *        icon = true 表示提示在图标显示， 默认是不显示。
  *
  *
  *  编号   版本号      作者     修改日期        修改内容
@@ -35,6 +38,7 @@
  *   4.   1.0.3     mrlong    2013-11-04     修改支持IE8，不能Array.indexOf() 改为 $.inArray()
  *   5.   1.0.4     mrlong    2014-6-15     修改在textarea没有type时的错误,扩展valid（）方法。
  *   6.   1.0.5     mrlong    2015-6-09     增加手机的校验方式，引用 surenkid 代码
+ *   7.   1.0.6     mrlong    2015-6-09     增加图标显示，增加重置时清空内容
  *
 /* =========================================================
  * bootstrap-validation.js 
@@ -56,16 +60,21 @@
  * ========================================================= */
 !function($) {
     $.fn.validation = function(callback,options) {
-
+      
         if ( !this.length ) {
             if ( options && options.debug && window.console ) {
                 console.warn( "Nothing selected, can't validate, returning nothing." );
             }
             return;
         }
-
+        
+        if(typeof callback === 'object'){
+          options = callback;
+          callback = null;
+        };
+        
         return this.each(function() {
-            globalOptions = $.extend({}, $.fn.validation.defaults, options);
+            globalOptions = $.extend({}, $.fn.validation.defaults, options);  //这个全局的？
             globalOptions.callback = callback;
             // Add novalidate tag if HTML5.
             $(this).attr( "novalidate", "novalidate" );
@@ -140,7 +149,8 @@
             {name: 'mobile', validate: function(value) {return (!/^0?(13[0-9]|15[0-9]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(value));}, defaultMsg: '请输入正确的手机号。'}
         ],
         reqmark:true,
-        callback:null  //function(obj,params){};           
+        callback:null,  //function(obj,params){};
+        icon:false      //=icon=true 表示显示图标，默认不显示
     };
 
     var formState = false, 
@@ -255,21 +265,37 @@
 
         var controlGroup = el.parents('.form-group');
         controlGroup.removeClass('has-error has-success');
+        
         controlGroup.addClass(error==false?'has-success':'has-error');
+        //在后面增加图标
+        if(globalOptions.icon===true){
+          controlGroup.find('.form-control-feedback').remove();
+          controlGroup.addClass('has-feedback'); //增加后面图示
+        };
+      
         var form = el.parents("form");
         if(form){
-            var fstyle = isformstyle(form);
+            var fstyle = isformstyle(form); //0=表示基本表单 1=表示内联表单 2=水平排列的表单
+            var iconname = error==false?'glyphicon-ok':'glyphicon-remove';
             if(fstyle == 0){
                 controlGroup.find("#valierr").remove();
                 el.after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
+                if (globalOptions.icon===true){
+                  el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                }
             }
             else if(fstyle == 1){
-
+              if (globalOptions.icon===true){
+                el.after('<span class="glyphicon ' + iconname + ' form-control-feedback" aria-hidden="true"></span>');
+              }
             }
             else if (fstyle == 2){
                 controlGroup.find("#valierr").remove();
                 el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
-            }
+                if (globalOptions.icon===true){
+                  el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                }
+             }
         };//end !form
         return !error;
     };
@@ -329,6 +355,16 @@
                 }); 
             };
         };//end showrequired
+      
+      //4.重置按钮 type="reset" 2015-6-09
+      $(obj).find("input[type='reset'],button[type='reset']").each(function(){
+         var el = $(this);
+          el.on('click',function(){ //
+            $(obj).validation(); 
+            $("#validerrmsg").remove();
+          }); 
+      });
+      //end 4
 
     };
 }(window.jQuery);
