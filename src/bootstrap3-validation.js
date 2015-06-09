@@ -268,7 +268,7 @@
         
         controlGroup.addClass(error==false?'has-success':'has-error');
         //在后面增加图标
-        if(globalOptions.icon===true){
+        if(globalOptions.icon===true ){
           controlGroup.find('.form-control-feedback').remove();
           controlGroup.addClass('has-feedback'); //增加后面图示
         };
@@ -280,20 +280,36 @@
             if(fstyle == 0){
                 controlGroup.find("#valierr").remove();
                 el.after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
-                if (globalOptions.icon===true){
-                  el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                if (globalOptions.icon===true ){
+                  if (el.find('option').length==0){
+                    el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                  }
+                  else{
+                    el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true" style="right: 25px;"></span>');  
+                  }
+                  
                 }
             }
             else if(fstyle == 1){
-              if (globalOptions.icon===true){
-                el.after('<span class="glyphicon ' + iconname + ' form-control-feedback" aria-hidden="true"></span>');
+              if (globalOptions.icon===true ){
+                if (el.find('option').length==0){
+                  el.after('<span class="glyphicon ' + iconname + ' form-control-feedback" aria-hidden="true"></span>');
+                }
+                else{
+                  el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true" style="right: 25px;"></span>');   
+                }
               }
             }
             else if (fstyle == 2){
                 controlGroup.find("#valierr").remove();
                 el.parent().after('<span class="help-block" id="valierr">' + errorMsg +'</span>');
-                if (globalOptions.icon===true){
-                  el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                if (globalOptions.icon===true ){
+                  if (el.find('option').length==0){
+                    el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true"></span>');
+                  }
+                  else{
+                    el.after('<span class="glyphicon '+ iconname +' form-control-feedback" aria-hidden="true" style="right: 25px;"></span>');  
+                  }
                 }
              }
         };//end !form
@@ -304,7 +320,7 @@
     var validationForm = function(obj) {
            
         //1.丢失焦点事件
-        $(obj).find('input, textarea').each(function(){
+        $(obj).find('input, textarea,select').each(function(){
             var el = $(this);
             el.on('blur',function(){ // 失去焦点时
                 valid = (el.attr('check-type')==undefined)?null:el.attr('check-type').split(' ');
@@ -341,7 +357,7 @@
             }   
             else if(fform_style==2){
 
-                $(obj).find('input, textarea').each(function(){
+                $(obj).find('input, textarea,select').each(function(){
                     var el = $(this);
                     var controlGroup = el.parents('.form-group');
                     controlGroup.removeClass('has-error has-success');
