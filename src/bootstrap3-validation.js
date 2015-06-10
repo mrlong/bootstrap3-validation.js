@@ -40,7 +40,7 @@
  *   6.   1.0.5     mrlong    2015-6-09     增加手机的校验方式，引用 surenkid 代码
  *   7.   1.0.6     mrlong    2015-6-09     增加图标显示，增加重置时清空内容
  *
-/* =========================================================
+ * =========================================================
  * bootstrap-validation.js 
  * Original Idea: http:/www.newkou.org (Copyright 2012 Stefan Petre)
  * Updated by 不会飞的羊 (https://github.com/FateSheep/Validation-for-Bootstrap)
@@ -127,14 +127,23 @@
             if (myobject ==null){
                 myobject = $('button:last[type=submit]');
             };
-            if(myobject.parent().attr('class').split(' ').indexOf('btn-group')>=0)
+          
+            //由于ie8不支持array .indexOf(), 改下如下代码。
+            var classArray = myobject.parent().attr('class').split(' ');  
+            var hadgroup = false;
+            for(var i=0; i< classArray.length; i++){
+              if(classArray[i]=='btn-group'){
+                hadgroup = true;
+                break;
+              }
+            };
+            if(hadgroup)
             {
-              myobject.parent().before('<span id="validerrmsg" class="help-block" style="color: #FF0000;">'+myoptions+'</span>');  
+              myobject.parent().before('<span id="validerrmsg" class="help-block" style="color: #FF0000;"><div class="alert alert-warning" role="alert" style="padding:10px;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+myoptions+'</div></span>');
             }
             else {
-              myobject.before('<span id="validerrmsg" class="help-block" style="color: #FF0000;">'+myoptions+'</span>');
-            }
-              
+              myobject.before('<span id="validerrmsg" class="help-block" style="color: #FF0000;"><div class="alert alert-warning" role="alert" style="padding:10px;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+myoptions+'</div></span>');
+            };
         };
         //end
 
