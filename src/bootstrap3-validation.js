@@ -127,7 +127,13 @@
             if (myobject ==null){
                 myobject = $('button:last[type=submit]');
             };
-            myobject.after('<span id="validerrmsg" class="help-block" style="color: #FF0000;">'+myoptions+'</span>');
+            if(myobject.parent().attr('class').split(' ').indexOf('btn-group')>=0)
+            {
+              myobject.parent().before('<span id="validerrmsg" class="help-block" style="color: #FF0000;">'+myoptions+'</span>');  
+            }
+            else {
+              myobject.before('<span id="validerrmsg" class="help-block" style="color: #FF0000;">'+myoptions+'</span>');
+            }
               
         };
         //end
