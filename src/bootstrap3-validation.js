@@ -83,7 +83,7 @@
         });
     };
 
-    $.fn.valid=function(object,options){
+    $.fn.valid=function(object,options,cb){
         if (formState) { // 重复提交则返回
             return false;
         };
@@ -91,12 +91,25 @@
 
         var myobject;
         var myoptions;
+        var mycb;
         if (typeof object === 'object'){
             myobject = $(object);
-            myoptions = options;
+            if(typeof options === 'string'){
+              myoptions = options;
+              mycb = cb;
+            }
+            else{
+              mycb = options;  
+            }
         }
         else{
+          if(typeof object === 'string'){
             myoptions = object;
+            mycb = cb;
+          }
+          else{
+            mycb = object;
+          };
         };
 
         formState = true;
@@ -146,6 +159,8 @@
             };
         };
         //end
+      
+        if(mycb){mycb(validationError);}
 
         return !validationError;        
     }

@@ -41,9 +41,19 @@
       // 2.最后要调用 valid()方法。
       //  valide(object,msg),提示信息显示，object位置后面增加提示信息。如不填object 则自动找最后一个button submit.
       //  valide(msg)
-      if ($("#form1").valid(this,'填写信息不完整。')==false){
+      
+      //第一种提示写法
+      if ($("#form1").valid(this,'内容出错')==false){
         return false;
       }
+      
+      //第二种提示写法，回调方法你自己提示就随意你了。
+      //if ($("#form1").valid(this,function(err){alert(err)})==false){
+      //  return false;
+      //}
+      
+
+      
     })
 
     $("#form2").validation();
