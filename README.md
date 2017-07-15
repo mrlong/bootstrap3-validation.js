@@ -31,7 +31,7 @@ jQuery plugin for bootstrap3
     char 
     chinese 中文
  mail-message="扩展提示内容" ， 可以扩展data-message,url-message  
- mixlength="6" 表示长度大于等于6
+ minlength="6" 表示长度大于等于6
  range="2.1~3"   表示值在[2.1~3]之间，并check-type="number"
  range="2.1,2,4,5"   表示值在只能填现数字，并check-type="number" 
 
