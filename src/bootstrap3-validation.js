@@ -25,10 +25,11 @@
  *         params.msg = data.msg;
  *       });
  *     }},
- *     {reqmark:false,icon:true}
+ *     {reqmark:false,icon:true,errmsg:true}
  *   );
  *  其中： reqmark = true 表示显示*号
  *        icon = true 表示提示在图标显示， 默认是不显示。
+ *        errmsg = true 表示显示报错信息
  *
  *
  *  编号   版本号      作者     修改日期        修改内容
@@ -179,6 +180,7 @@
             {name: 'mobile', validate: function(value) {return (!/^0?(13[0-9]|15[0-9]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(value));}, defaultMsg: '请输入正确的手机号。'}
         ],
         reqmark:true,
+        errmsg :true,
         callback:null,  //function(obj,params){};
         icon:false      //=icon=true 表示显示图标，默认不显示
     };
@@ -343,6 +345,9 @@
                 }
              }
         };//end !form
+        if(globalOptions.errmsg!==true ){
+            controlGroup.find('.help-block').remove();
+        };
         return !error;
     };
 
